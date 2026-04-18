@@ -1,0 +1,288 @@
+<script>
+  document.addEventListener("submit", function (e) {
+    const form = e.target;
+
+    // only target Tilda forms
+    if (!form.classList.contains("t-form")) return;
+
+    const delivery = form.querySelector(
+      'input[name="tildadelivery-type"]:checked',
+    );
+    const addressInput = form.querySelector(
+      'input[name="address"], textarea[name="address"]',
+    );
+
+    if (!delivery || !addressInput) return;
+
+    const value = delivery.value;
+    const address = addressInput.value.toLowerCase();
+
+    // allowed streets list
+    const allowedStreets = [
+      "ул адмирала черокова",
+      "ул капитан грищенко",
+      "ул адмирала трибуца",
+      "ул адмирала коновалова",
+      "ул катерников",
+      "наб. матисова канал",
+      "ул летчика тихомирова",
+      "пр-кт Героев",
+      "пр-кт Патриотов",
+      "б-р балтийский",
+      "наб. дудергофского канала",
+      "ул маршала казакова",
+      "пр-кт ленинский",
+      "ул маршала захарова",
+      "ул доблести",
+      "ул челюскина",
+      "б-р головнин",
+      "ул чирикова",
+      "пр-кт крузенштерна",
+      "б-р Александра грину",
+      "наб. миклухо-маклая",
+      "ул виктора концоко",
+      "б-р вилькицкий",
+      "ул гончарова",
+      "ул вадима шефнера",
+      "пер круизный",
+      "пер паромный",
+      "ул лисянского",
+    ];
+
+    // check condition
+    if (value === "Доставка внутри зон") {
+      const isAllowed = allowedStreets.some((street) =>
+        address.includes(street),
+      );
+
+      if (!isAllowed) {
+        e.preventDefault(); // 🚫 STOP submission
+
+        alert(
+          "Адрес вне зоны доставки. Пожалуйста, выберите 'Доставка вне зон' или укажите корректный адрес.",
+        );
+      }
+    }
+  });
+</script>
+
+// allowed streets list const allowedStreets = [ "ул Адмирала Черокова", "ул
+Капитана Грищенко", "ул Адмирала Трибуца", "ул Адмирала Коновалова", "ул
+Катерников", "наб. Матисова Канала", "ул Летчика Тихомирова", "пр-кт Героев",
+"пр-кт Патриотов", "б-р Балтийский", "наб. Дудергофского канала", "ул Маршала
+Казакова", "пр-кт Ленинский", "ул Маршала Захарова", "ул Доблести", "ул
+Челюскина", "б-р Головнина", "ул Чирикова", "пр-кт Крузенштерна", "б-р
+Александра Грина", "наб. Миклухо-Маклая", "ул Виктора Конецкого", "б-р
+Вилькицкий", "ул Гончарова", "ул Вадима Шефнера", "пер Круизный", "пер
+Паромный", "ул Лисянского", ];
+
+<script>
+  document.addEventListener("submit", function (e) {
+    const form = e.target;
+
+    if (!form.classList.contains("t-form")) return;
+
+    const delivery = form.querySelector(
+      'input[name="tildadelivery-type"]:checked',
+    );
+    const streetInput = form.querySelector(
+      'input[name="tildadelivery-street"]',
+    );
+
+    if (!delivery || !streetInput) return;
+
+    const deliveryValue = delivery.value;
+    const streetValue = streetInput.value.toLowerCase();
+
+    // allowed streets list
+    const allowedStreets = [
+      "ул адмирала черокова",
+      "ул капитан грищенко",
+      "ул адмирала трибуца",
+      "ул адмирала коновалова",
+      "ул катерников",
+      "наб. матисова канал",
+      "ул летчика тихомирова",
+      "пр-кт героев",
+      "пр-кт патриотов",
+      "б-р балтийский",
+      "наб. дудергофского канала",
+      "ул маршала казакова",
+      "пр-кт ленинский",
+      "ул маршала захарова",
+      "ул доблести",
+      "ул челюскина",
+      "б-р головнин",
+      "ул чирикова",
+      "пр-кт крузенштерна",
+      "б-р александра грину",
+      "наб. миклухо-маклая",
+      "ул виктора концоко",
+      "б-р вилькицкий",
+      "ул гончарова",
+      "ул вадима шефнера",
+      "пер круизный",
+      "пер паромный",
+      "ул лисянского",
+    ];
+
+    if (deliveryValue === "Доставка внутри зон") {
+      const isAllowed = allowedStreets.some((street) =>
+        streetValue.includes(street),
+      );
+
+      if (!isAllowed) {
+        e.preventDefault();
+
+        alert(
+          "Этот адрес не входит в зону доставки. Пожалуйста, выберите 'Доставка вне зон' или укажите корректную улицу.",
+        );
+
+        streetInput.focus();
+      }
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector(".t706__cartpage-form"); // your form
+    if (!form) return;
+
+    form.addEventListener("submit", function (e) {
+      const delivery = form.querySelector(
+        'input[name="tildadelivery-type"]:checked',
+      );
+      const streetInput = form.querySelector(
+        'input[name="tildadelivery-street"]',
+      );
+
+      if (!delivery || !streetInput) return;
+
+      const deliveryValue = delivery.value;
+      const streetValue = streetInput.value.toLowerCase();
+
+      // allowed streets list
+      const allowedStreets = [
+        "ул адмирала черокова",
+        "ул капитан грищенко",
+        "ул адмирала трибуца",
+        "ул адмирала коновалова",
+        "ул катерников",
+        "наб. матисова канал",
+        "ул летчика тихомирова",
+        "пр-кт героев",
+        "пр-кт патриотов",
+        "б-р балтийский",
+        "наб. дудергофского канала",
+        "ул маршала казакова",
+        "пр-кт ленинский",
+        "ул маршала захарова",
+        "ул доблести",
+        "ул челюскина",
+        "б-р головнин",
+        "ул чирикова",
+        "пр-кт крузенштерна",
+        "б-р александра грину",
+        "наб. миклухо-маклая",
+        "ул виктора концоко",
+        "б-р вилькицкий",
+        "ул гончарова",
+        "ул вадима шефнера",
+        "пер круизный",
+        "пер паромный",
+        "ул лисянского",
+      ];
+
+      // Only validate if "Доставка внутри зон" is selected
+      if (deliveryValue === "Доставка внутри зон") {
+        const isAllowed = allowedStreets.some((street) =>
+          streetValue.includes(street),
+        );
+
+        if (!isAllowed) {
+          e.preventDefault(); // stop form submission
+          alert(
+            "Этот адрес не входит в зону доставки. Пожалуйста, выберите 'Доставка вне зон' или укажите корректную улицу.",
+          );
+          streetInput.focus();
+        }
+      }
+    });
+  });
+</script>
+
+
+
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector(".t706__cartpage-form");
+    if (!form) return;
+  
+    const streetInput = form.querySelector('input[name="tildadelivery-street"]');
+    const submitBtn = form.querySelector('button[type="submit"], input[type="submit"]');
+  
+    if (!streetInput || !submitBtn) return;
+  
+    const allowedStreets = [
+      "ул адмирала черокова",
+      "ул капитан грищенко",
+      "ул адмирала трибуца",
+      "ул адмирала коновалова",
+      "ул катерников",
+      "наб. матисова канал",
+      "ул летчика тихомирова",
+      "пр-кт героев",
+      "пр-кт патриотов",
+      "б-р балтийский",
+      "наб. дудергофского канала",
+      "ул маршала казакова",
+      "пр-кт ленинский",
+      "ул маршала захарова",
+      "ул доблести",
+      "ул челюскина",
+      "б-р головнин",
+      "ул чирикова",
+      "пр-кт крузенштерна",
+      "б-р александра грину",
+      "наб. миклухо-маклая",
+      "ул виктора концоко",
+      "б-р вилькицкий",
+      "ул гончарова",
+      "ул вадима шефнера",
+      "пер круизный",
+      "пер паромный",
+      "ул лисянского",
+    ];
+  
+    function checkValidity() {
+      const deliverySelected = form.querySelector('input[name="tildadelivery-type"]:checked');
+      if (!deliverySelected) {
+        submitBtn.disabled = true;
+        return;
+      }
+  
+      if (deliverySelected.value === "Доставка внутри зон") {
+        const street = streetInput.value.toLowerCase();
+        const allowed = allowedStreets.some(s => street.includes(s));
+        submitBtn.disabled = !allowed;
+      } else {
+        submitBtn.disabled = false;
+      }
+    }
+  
+    // debounce helper
+    let debounceTimeout;
+    function debounceCheck() {
+      clearTimeout(debounceTimeout);
+      debounceTimeout = setTimeout(checkValidity, 200);
+    }
+  
+    streetInput.addEventListener("input", debounceCheck);
+    form.querySelectorAll('input[name="tildadelivery-type"]').forEach(r => r.addEventListener("change", checkValidity));
+  
+    checkValidity(); // initial run
+  });
+  </script>

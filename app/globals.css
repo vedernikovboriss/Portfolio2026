@@ -1,0 +1,194 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0e0e0e;
+  --foreground: #f4ecec;
+  --accent: #534941;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-bdo-grotesk);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-bdo-grotesk), Arial, Helvetica, sans-serif;
+  @apply text-sm antialiased sm:text-base;
+}
+
+/* Native anchor scroll (e.g. reduced motion, no Lenis): clear fixed nav */
+main section[id] {
+  scroll-margin-top: 6rem;
+}
+
+@layer components {
+  .section-base {
+    @apply flex flex-col gap-32 px-4 lg:px-[2vw] py-20;
+  }
+  .subtitle-small {
+    @apply text-sm font-medium uppercase tracking-wider opacity-70;
+  }
+  .p-big {
+    @apply max-w-5xl text-4xl font-medium tracking-wide leading-[1.12] sm:text-4xl sm:leading-[1.1] md:text-5xl md:leading-[1.1];
+  }
+  p {
+    @apply text-base max-w-sm;
+  }
+  .p-secondary {
+    @apply max-w-sm text-sm opacity-70;
+  }
+
+  /**
+   * Nav link underline: grows from the left on hover, collapses toward the right
+   * on hover out. Uses ::before + ::after as two 1px strips for a subtle weight.
+   */
+  .link-line {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 2px;
+  }
+
+  .link-line::before,
+  .link-line::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    /* Rest: collapsed toward the right */
+    transform-origin: 100% 50%;
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+
+  .link-line::before {
+    bottom: 1px;
+    opacity: 0.35;
+  }
+
+  .link-line::after {
+    bottom: 0;
+  }
+
+  .link-line:hover::before,
+  .link-line:hover::after {
+    transform: scaleX(1);
+    /* Hover: draw from the left */
+    transform-origin: 0% 50%;
+  }
+}
+
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+@keyframes noiseFlicker {
+  0%,
+  100% {
+    opacity: 0.18;
+    filter: blur(0.5px) contrast(1.05);
+  }
+  25% {
+    opacity: 0.28;
+    filter: blur(0.9px) contrast(1.2);
+  }
+  50% {
+    opacity: 0.2;
+    filter: blur(0.6px) contrast(1.1);
+  }
+  75% {
+    opacity: 0.34;
+    filter: blur(1px) contrast(1.25);
+  }
+}
+
+.micro-float-noise {
+  position: relative;
+  display: inline-block;
+  text-shadow: 0 0 0.4px rgb(255 255 255 / 0.24);
+  isolation: isolate;
+}
+
+.micro-float-noise::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  color: inherit;
+  opacity: 0.26;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: blur(0.8px);
+  animation: noiseFlicker 0.22s steps(2, end) infinite;
+}
+
+.micro-float-noise::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  color: rgb(255 255 255 / 0.24);
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  filter: blur(1.2px);
+  animation: noiseFlicker 0.15s steps(3, end) infinite reverse;
+}
+
+@keyframes flashOpacity {
+  0%,
+  42% {
+    opacity: 0.95;
+  }
+  58%,
+  100% {
+    opacity: 0.05;
+  }
+}
+
+.subtle-block-drift {
+  animation: blockDrift 4.6s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes blockDrift {
+  0% {
+    transform: translate3d(0px, 0px, 0);
+  }
+  25% {
+    transform: translate3d(0.6px, -0.35px, 0);
+  }
+  50% {
+    transform: translate3d(0.15px, 0.45px, 0);
+  }
+  75% {
+    transform: translate3d(-0.5px, -0.25px, 0);
+  }
+  100% {
+    transform: translate3d(0px, 0px, 0);
+  }
+}
+
+.flash-blur-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.flash-blur-ghost {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  filter: blur(1.8px) contrast(1.25);
+  opacity: 0.9;
+  mix-blend-mode: screen;
+  animation:
+    flashOpacity 0.43s steps(2, end) infinite,
+    ghostDrift 2.4s ease-in-out infinite;
+}
