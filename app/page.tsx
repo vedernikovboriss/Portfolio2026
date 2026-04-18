@@ -26,11 +26,11 @@ export default function Home() {
 
         <Highlights />
         <Archive />
-        <div className="subtle-block-drift flex flex-col gap-4 px-[2vw] py-6 sm:flex-row sm:items-center sm:justify-between sm:gap-6 md:py-8">
-          <span className="text-balance text-2xl italic leading-tight opacity-50 sm:text-3xl md:text-4xl lg:text-5xl">
+        <div className="subtle-block-drift flex flex-col gap-4 lg:px-[2vw] px-4 py-6 sm:flex-row sm:items-center sm:justify-between sm:gap-6 md:py-8">
+          <span className="text-balance text-3xl italic leading-tight opacity-50 sm:text-3xl md:text-4xl lg:text-5xl">
             BOOKING PROJECTS
           </span>
-          <span className="flash-blur-wrap shrink-0 text-2xl italic sm:text-3xl md:text-4xl lg:text-5xl">
+          <span className="flash-blur-wrap shrink-0 text-3xl italic sm:text-3xl md:text-4xl lg:text-5xl">
             <span>April 2026</span>
             <span className="flash-blur-ghost" aria-hidden="true">
               April 2026

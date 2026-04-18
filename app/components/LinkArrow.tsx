@@ -13,7 +13,7 @@ const LinkArrow = ({
   return (
     <Link
       href={href}
-      className={`flex items-center gap-1 link-line leading-[1.2] ${className}`}
+      className={`text-base flex items-center gap-1 link-line leading-[1.2] ${className}`}
     >
       {children}
       <svg

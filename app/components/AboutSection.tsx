@@ -33,11 +33,13 @@ const AboutSection = () => {
     <section className="section-base relative gap-12 md:gap-16">
       <div className="flex flex-col gap-4">
         <div className="h-px w-full bg-foreground/10" />
-        <div className="grid w-full grid-cols-1 gap-6 lg:grid-cols-10 lg:gap-32">
+        <div className="flex justify-between lg:grid w-full gap-6 lg:grid-cols-10 lg:gap-32">
           <h2 className="subtitle-small lg:col-span-4">My WorkFlow</h2>
-          <div className="flex w-full flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-8 lg:col-span-6">
+          <div className="flex lg:w-full flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-8 lg:col-span-6">
             <span className="subtitle-small">(Valencia, Spain)</span>
-            <span className="subtitle-small">(Personalized approach)</span>
+            <span className="subtitle-small hidden lg:block">
+              (Personalized approach)
+            </span>
           </div>
         </div>
       </div>
@@ -118,10 +120,12 @@ const ProcessItem = ({ index, title }: { index: number; title: string }) => {
   return (
     <div className="flex items-center justify-between border-t border-foreground/10 py-4">
       <div className="flex flex-col">
-        <span>{title}</span>
+        <span className="text-base">{title}</span>
       </div>
 
-      <span className="subtitle-small font-normal!">0{index + 1}</span>
+      <span className="subtitle-small font-normal! text-base">
+        0{index + 1}
+      </span>
     </div>
   );
 };

@@ -1,6 +1,5 @@
 "use client";
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -271,6 +270,7 @@ function HighlightMetaRows({ item }: { item: HighlightItem }) {
 }
 
 function ProjectVideo({ src, imageSrc }: { src: string; imageSrc: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [srcToLoad, setSrcToLoad] = useState<string | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -278,6 +278,14 @@ function ProjectVideo({ src, imageSrc }: { src: string; imageSrc: string }) {
     setIsLoaded(false);
     setSrcToLoad(src);
   }, [src]);
+
+  /** Mobile Safari often ignores `autoPlay` alone; muted + playsInline + programmatic play helps */
+  useEffect(() => {
+    if (!isLoaded || !videoRef.current) return;
+    const v = videoRef.current;
+    v.muted = true;
+    void v.play().catch(() => {});
+  }, [isLoaded, srcToLoad]);
 
   return (
     <div className="relative w-full h-full bg-[#313131] p-4 overflow-hidden flex items-center justify-center">
@@ -294,6 +302,7 @@ function ProjectVideo({ src, imageSrc }: { src: string; imageSrc: string }) {
 
           <div className="relative z-10 overflow-hidden rounded-sm">
             <video
+              ref={videoRef}
               className={`w-full transition-opacity bg-[#313131] duration-300 ease-out ${
                 isLoaded ? "opacity-100" : "opacity-0"
               }`}
@@ -302,7 +311,7 @@ function ProjectVideo({ src, imageSrc }: { src: string; imageSrc: string }) {
               loop
               muted
               playsInline
-              preload="none"
+              preload="metadata"
               onLoadedData={() => setIsLoaded(true)}
             />
           </div>

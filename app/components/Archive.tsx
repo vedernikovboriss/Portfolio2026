@@ -175,7 +175,7 @@ export function ProjectCard({
               opacity: { duration: 0.62, ease: "easeOut" },
             }}
           >
-            <div className="flex flex-col gap-6 pt-4 pb-6 sm:gap-8 sm:pb-8">
+            <div className="flex flex-col items-start gap-6 pt-4 pb-6 sm:gap-8 sm:pb-8">
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
                 {description.map((item, index) => (
                   <p key={index} className="max-w-none">
@@ -185,7 +185,7 @@ export function ProjectCard({
               </div>
 
               {link && (
-                <LinkArrow className="opacity-60" href={link}>
+                <LinkArrow href={link} className="leading-[1.2]">
                   Visit Website
                 </LinkArrow>
               )}

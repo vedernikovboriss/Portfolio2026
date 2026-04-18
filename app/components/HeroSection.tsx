@@ -7,7 +7,7 @@ const heroImgOpacity = "opacity-35 sm:opacity-40 md:opacity-50";
 
 const HeroSection = () => {
   return (
-    <section className="relative isolate flex min-h-dvh flex-col justify-between gap-6 px-[2vw] pb-8 pt-24 sm:gap-8 sm:pb-[2vw] sm:pt-28 md:pt-32 lg:pt-36">
+    <section className="relative isolate flex min-h-dvh flex-col justify-between gap-6 px-4 lg:px-[2vw] pb-8 pt-24 sm:gap-8 sm:pb-[2vw] sm:pt-28 md:pt-32 lg:pt-36">
       <div className="relative z-10 flex max-w-full flex-col gap-3 sm:gap-4 lg:max-w-3xl">
         <span className="subtitle-small">Web Designer & Developer</span>
         <h1 className="text-balance text-3xl font-medium leading-[1.12] tracking-wide sm:text-4xl sm:leading-[1.14] md:text-5xl md:leading-[1.15]">
