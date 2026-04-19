@@ -9,9 +9,9 @@ export const projects = [
     link: "reverv",
     location: "Spain",
     photos: [
-      `/ArchivePhotos/Architech/img1.png`,
-      `/ArchivePhotos/Architech/img2.png`,
-      `/ArchivePhotos/Architech/img3.png`,
+      `/ArchivePhotos/Architech/img1.avif`,
+      `/ArchivePhotos/Architech/img2.avif`,
+      `/ArchivePhotos/Architech/img3.avif`,
     ],
     description: [
       "An exploration website into the use of generative AI in Architecture. Fully developed and designed the website as well as conducted the experiments displayed on the website ",
@@ -27,9 +27,9 @@ export const projects = [
     tools: ["Webflow", "GSAP", "JS"],
     location: "USA",
     photos: [
-      `/ArchivePhotos/VoiceToolAI/img1.png`,
-      `/ArchivePhotos/VoiceToolAI/img2.png`,
-      `/ArchivePhotos/VoiceToolAI/img3.png`,
+      `/ArchivePhotos/VoiceToolAI/img1.avif`,
+      `/ArchivePhotos/VoiceToolAI/img2.avif`,
+      `/ArchivePhotos/VoiceToolAI/img3.avif`,
     ],
     description: [
       "Developed and designed a technological modern website for an AI agency that offers automatisation services with AI.",
@@ -44,9 +44,9 @@ export const projects = [
     location: "Spain",
     tools: ["Webflow", "GSAP", "JS"],
     photos: [
-      `/ArchivePhotos/HSCS/img1.png`,
-      `/ArchivePhotos/HSCS/img2.png`,
-      `/ArchivePhotos/HSCS/img3.png`,
+      `/ArchivePhotos/HSCS/img1.avif`,
+      `/ArchivePhotos/HSCS/img2.avif`,
+      `/ArchivePhotos/HSCS/img3.avif`,
     ],
     description: [
       "A concept website based on the paper written by me about the Spanish Civil War. The case study shows the informative content in an entertaining and engaging manner and was built for educational purposes.",
@@ -62,9 +62,9 @@ export const projects = [
     location: "USA",
     tools: ["Webflow", "GSAP", "JS"],
     photos: [
-      `/ArchivePhotos/LiftlyAI/img1.png`,
-      `/ArchivePhotos/LiftlyAI/img2.png`,
-      `/ArchivePhotos/LiftlyAI/img3.png`,
+      `/ArchivePhotos/LiftlyAI/img1.avif`,
+      `/ArchivePhotos/LiftlyAI/img2.avif`,
+      `/ArchivePhotos/LiftlyAI/img3.avif`,
     ],
     description: [
       "A website for a consulting agency that helps other businesses integrate the Artificial Intelligence into their workflow. Development + Design.",
@@ -79,9 +79,9 @@ export const projects = [
     location: "Russia",
     tools: ["Tilda", "JavaScript"],
     photos: [
-      `/ArchivePhotos/Rybniy1/img1.png`,
-      `/ArchivePhotos/Rybniy1/img2.png`,
-      `/ArchivePhotos/Rybniy1/img3.png`,
+      `/ArchivePhotos/Rybniy1/img1.avif`,
+      `/ArchivePhotos/Rybniy1/img2.avif`,
+      `/ArchivePhotos/Rybniy1/img3.avif`,
     ],
     description: [
       "Developed a modern delivery website for a premium seafood shop in Saint Petersburg using Tilda, enhanced with custom JavaScript and CSS for features like dynamic pricing and delivery zones.",
@@ -98,9 +98,9 @@ export const projects = [
     location: "Russia",
     tools: ["NextJS", "Framer Motion", "GSAP", "View Transition"],
     photos: [
-      `/ArchivePhotos/Tehotdel/img1.png`,
-      `/ArchivePhotos/Tehotdel/img2.png`,
-      `/ArchivePhotos/Tehotdel/img3.png`,
+      `/ArchivePhotos/Tehotdel/img1.avif`,
+      `/ArchivePhotos/Tehotdel/img2.avif`,
+      `/ArchivePhotos/Tehotdel/img3.avif`,
     ],
     description: [
       "Designed and developed a comprehensive website for a Saint Petersburg-based company specializing in door installation services. The site also features educational resources to guide individuals interested in starting a career in this field.",

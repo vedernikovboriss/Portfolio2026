@@ -38,8 +38,8 @@ function scrollToHash(href: string) {
 
 const NavBar = () => {
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 px-[2vw] py-[2vw] flex flex-row justify-between items-center lg:grid lg:grid-cols-3 mix-blend-difference">
-      <span className="z-10 text-base sm:text-lg">Boris Vedernikov © </span>
+    <nav className="fixed top-0 left-0 w-full z-50 lg:px-[2vw] px-4 lg:py-[2vw] py-6 flex flex-row justify-between items-center lg:grid lg:grid-cols-3 mix-blend-difference">
+      <span className="z-10 text-lg sm:text-lg">Boris Vedernikov © </span>
       <div className="hidden items-center gap-0 text-base sm:text-lg lg:flex lg:justify-self-center">
         <NavBarLink number="1" href="#about">
           About
@@ -53,7 +53,7 @@ const NavBar = () => {
           Works
         </NavBarLink>
       </div>
-      <div className="flex items-center gap-0 text-base sm:text-lg lg:justify-self-end">
+      <div className="flex items-center gap-0 text-base sm:text-lg lg:justify-self-end self-center">
         <LinkArrow href="https://cal.com/boris.vedernikov/30min">
           Book a call
         </LinkArrow>

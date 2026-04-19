@@ -42,7 +42,7 @@ const ServicesSection = () => {
       <div className="grid grid-cols-1 gap-10 min-h-0 md:grid-cols-2 lg:min-h-[600px] lg:grid-cols-4 lg:gap-16">
         <div className="relative min-h-[280px] w-full overflow-hidden rounded-md bg-[#313131] text-background sm:min-h-[360px] md:col-span-2 lg:row-span-2 lg:min-h-[400px]">
           <Image
-            src="/imgBalcony.jpg"
+            src="/imgBalcony.avif"
             alt="Service visual"
             className="object-cover opacity-80"
             fill

@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="flex flex-col gap-4">
         <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm sm:aspect-[3/2] xl:aspect-auto xl:min-h-[14rem] xl:h-full">
           <Image
-            src="/imgFooter.jpg"
+            src="/imgFooter.avif"
             alt="Footer visual"
             fill
             className="object-cover grayscale"

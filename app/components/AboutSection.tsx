@@ -85,7 +85,7 @@ const AboutSection = () => {
         <div className="flex w-full flex-col gap-8 lg:col-span-4 lg:col-start-1 lg:row-start-1">
           <div className="relative aspect-3/2 w-full overflow-hidden rounded-sm bg-[#313131]">
             <Image
-              src="/AboutImg.jpg"
+              src="/AboutImg.avif"
               alt="About — workflow and process"
               className="object-cover opacity-80"
               fill

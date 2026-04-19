@@ -1,10 +1,7 @@
-import { Philosopher } from "next/font/google";
 import NavBar from "./components/NavBar";
-import Image from "next/image";
 import ScrollProgressBar from "./components/ScrollProgressBar";
 import HeroSection from "./components/HeroSection";
 import ServicesSection from "./components/ServicesSection";
-import ProjectsSection from "./components/ProjectsSection";
 import AboutSection from "./components/AboutSection";
 import Footer from "./components/Footer";
 import Texture from "./components/Texture";
