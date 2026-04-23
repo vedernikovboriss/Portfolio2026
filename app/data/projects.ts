@@ -98,9 +98,9 @@ export const projects = [
     location: "Russia",
     tools: ["NextJS", "Framer Motion", "GSAP", "View Transition"],
     photos: [
-      `/ArchivePhotos/Tehotdel/img1.avif`,
-      `/ArchivePhotos/Tehotdel/img2.avif`,
-      `/ArchivePhotos/Tehotdel/img3.avif`,
+      `/ArchivePhotos/TehOtdel/img1.avif`,
+      `/ArchivePhotos/TehOtdel/img2.avif`,
+      `/ArchivePhotos/TehOtdel/img3.avif`,
     ],
     description: [
       "Designed and developed a comprehensive website for a Saint Petersburg-based company specializing in door installation services. The site also features educational resources to guide individuals interested in starting a career in this field.",
