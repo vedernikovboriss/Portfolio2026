@@ -74,7 +74,7 @@ const AboutSection = () => {
                 <LinkArrow href="https://www.linkedin.com/in/borisvedernikov/">
                   LinkedIn
                 </LinkArrow>
-                <LinkArrow href="https://www.instagram.com/borisvedernikov/">
+                <LinkArrow href="https://www.instagram.com/bv_dsgn/">
                   Instagram
                 </LinkArrow>
               </div>

@@ -36,7 +36,13 @@ const ServicesSection = () => {
           <span className="subtitle-small hidden lg:block lg:col-start-3">
             (How I can help you)
           </span>
-          <span className="subtitle-small lg:justify-self-end">(03)</span>
+          <span className="subtitle-small lg:justify-self-end">
+            (
+            {serviceCards.length > 9
+              ? serviceCards.length
+              : `0${serviceCards.length}`}
+            )
+          </span>
         </div>
       </div>
       <div className="grid grid-cols-1 gap-10 min-h-0 md:grid-cols-2 lg:min-h-[600px] lg:grid-cols-4 lg:gap-16">

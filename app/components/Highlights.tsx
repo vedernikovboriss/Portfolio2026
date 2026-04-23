@@ -141,12 +141,9 @@ export const Project = () => {
   return (
     <>
       {/* Tablet & phone: all projects stacked, text + video per card */}
-      <div className="flex flex-col gap-10 lg:hidden">
+      <div className="flex flex-col gap-16 lg:hidden">
         {highlightItems.map((item) => (
-          <article
-            key={item.id}
-            className="flex flex-col gap-10 border-b border-foreground/10 pb-10 last:border-b-0 last:pb-0"
-          >
+          <article key={item.id} className="flex flex-col gap-10">
             <div className="flex flex-col gap-8">
               <span className="p-big">{item.title}</span>
               <HighlightMetaRows item={item} />

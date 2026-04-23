@@ -49,7 +49,7 @@ const Footer = () => {
           <span aria-hidden>, </span>
           <Link
             className="link-line leading-[1.2]"
-            href="https://www.instagram.com/borisvedernikov/"
+            href="https://www.instagram.com/bv_dsgn/"
           >
             Instagram
           </Link>
