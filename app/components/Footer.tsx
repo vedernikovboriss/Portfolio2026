@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="section-base grid grid-cols-1 gap-10 !pb-[2vw] sm:gap-12 md:grid-cols-2 md:gap-14 xl:grid-cols-4 xl:gap-16">
+    <footer className="section-base grid grid-cols-1 gap-10 !pb-[2vw] sm:gap-12 md:grid-cols-2 md:gap-14 xl:grid-cols-4 xl:gap-16 text-base!">
       <div className="flex flex-col gap-4">
         <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm sm:aspect-[3/2] xl:aspect-auto xl:min-h-[14rem] xl:h-full">
           <Image
