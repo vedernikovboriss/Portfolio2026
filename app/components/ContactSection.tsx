@@ -12,7 +12,7 @@ const ContactSection = () => {
             <div className="h-px w-full bg-foreground/10" />
             <span className="subtitle-small">Contact me</span>
           </div>
-          <div className="py-4 px-4 md:px-8 md:py-8 lg:px-16 overflow-auto">
+          <div className="py-4 px-4 md:px-8 md:py-8 lg:px-16 overflow-hidden">
             <Globe />
           </div>
           <div className="flex gap-2 flex-row items-center justify-between">

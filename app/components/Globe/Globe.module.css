@@ -1,20 +1,20 @@
 .globeRoot {
-  display: flex;
+  position: relative;
   width: 100%;
-  justify-content: center;
-  align-items: center;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
 }
 
 /* No translate on this box — translate(-50%,-50%) was shifting it off-center in flex layouts */
 .globe {
-  position: relative;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  aspect-ratio: 1/1;
-  flex-shrink: 0;
-  margin-inline: auto;
+  height: 100%;
   font-size: 0.75rem;
   background-color: color-mix(in oklab, var(--background) 12%, transparent);
   border-radius: 50%;
+  overflow: hidden;
   color: var(--foreground);
 }
 
