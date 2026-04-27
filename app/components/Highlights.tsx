@@ -52,12 +52,12 @@ const highlightItems: HighlightItem[] = [
   },
   {
     id: 4,
-    title: "HSCS",
+    title: "TehOtdel",
     description:
-      "A concept website based on the paper written by me about the Spanish Civil War and built for educational purposes.",
+      "Developed and designed a website for a company that provides technical support for computers and smartphones.",
     year: 2025,
-    industry: "Case Study",
-    type: "Full Stack",
+    industry: "Door Installation",
+    type: "Web Development",
     videoSrc:
       "https://portfolio-boris-vedernikov.b-cdn.net/LiftlyAICompressed.mp4",
     imageSrc: "/bgPhotos/bg2.avif",

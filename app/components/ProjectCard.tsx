@@ -137,11 +137,11 @@ export function ProjectCard({
               <div className="lg:hidden flex flex-col gap-2">
                 <span className="subtitle-small text-xs!">Project Details</span>
                 <div className="flex flex-col gap-2">
-                  <span className="text-sm font-medium">
+                  <span className="text-base font-medium">
                     Industry: {industry}
                   </span>
-                  <span className="text-sm font-medium">Type: {type}</span>
-                  <span className="text-sm font-medium">
+                  <span className="text-base font-medium">Type: {type}</span>
+                  <span className="text-base font-medium">
                     Location: {location}
                   </span>
                 </div>
