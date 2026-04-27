@@ -147,10 +147,15 @@ export const Project = () => {
     <>
       {/* Tablet & phone: all projects stacked, text + video per card */}
       <div className="flex flex-col gap-16 lg:hidden">
-        {highlightItems.map((item) => (
+        {highlightItems.map((item, index) => (
           <article key={item.id} className="flex flex-col gap-10">
             <div className="flex flex-col gap-8">
-              <span className="p-big">{item.title}</span>
+              <div className="w-full flex justify-between items-center">
+                <span className="p-big">{item.title}</span>
+                <span className="subtitle-small text-2xl!">
+                  {index + 1 < 10 ? `0${index + 1}` : index + 1}
+                </span>
+              </div>
               <HighlightMetaRows item={item} />
               <p className="text-base">{item.description}</p>
             </div>
