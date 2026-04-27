@@ -33,7 +33,7 @@ main section[id] {
     @apply text-sm font-medium uppercase tracking-wider opacity-70;
   }
   .p-big {
-    @apply max-w-5xl text-3xl font-medium tracking-wide leading-[1.12] sm:text-4xl sm:leading-[1.1] md:text-5xl md:leading-[1.1];
+    @apply max-w-5xl text-2xl font-medium tracking-wide leading-[1.2] sm:text-4xl sm:leading-[1.1] md:text-5xl md:leading-[1.1];
   }
   p {
     @apply text-base max-w-sm;

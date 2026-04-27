@@ -3,7 +3,7 @@ import React from "react";
 const BackgroundSection = () => {
   return (
     <section id="about" className="section-base pb-8!">
-      <div className="flex flex-col gap-16">
+      <div className="flex flex-col md:gap-16 gap-8">
         <div className="flex flex-col gap-4">
           <div className="w-full h-[1px] bg-foreground/10" />
           <div className="flex items-center justify-between gap-4">

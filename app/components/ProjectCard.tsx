@@ -45,7 +45,7 @@ export function ProjectCard({
       <motion.button
         type="button"
         onClick={onToggle}
-        className="relative grid cursor-pointer grid-cols-1 gap-4 py-6 text-left sm:gap-6 lg:grid-cols-6 lg:gap-8 lg:py-8"
+        className="relative grid cursor-pointer grid-cols-2 gap-4 py-6 text-left sm:gap-6 lg:grid-cols-6 lg:gap-8 lg:py-8"
         initial="rest"
         animate={isOpen ? "open" : "rest"}
         whileHover="hover"
@@ -97,11 +97,13 @@ export function ProjectCard({
             {title}
           </motion.h3>
         </div>
-        <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm font-medium lg:contents">
+        <div className="grid grid-cols-2 justify-self-end gap-x-4 gap-y-2 text-sm font-medium lg:contents">
           <span className="z-10 lg:self-center">{year}</span>
-          <span className="z-10 lg:self-center">{industry}</span>
-          <span className="z-10 lg:self-center">{type}</span>
-          <span className="z-10 min-w-0 wrap-break-word lg:self-center">
+          <span className="z-10 hidden lg:block lg:self-center">
+            {industry}
+          </span>
+          <span className="z-10 hidden lg:block lg:self-center">{type}</span>
+          <span className="z-10 hidden lg:block min-w-0 wrap-break-word lg:self-center">
             {location}
           </span>
         </div>
@@ -133,6 +135,18 @@ export function ProjectCard({
                   Visit Website
                 </LinkArrow>
               )}
+              <div className="lg:hidden flex flex-col gap-2">
+                <span className="subtitle-small text-xs!">Project Details</span>
+                <div className="flex flex-col gap-2">
+                  <span className="text-sm font-medium">
+                    Industry: {industry}
+                  </span>
+                  <span className="text-sm font-medium">Type: {type}</span>
+                  <span className="text-sm font-medium">
+                    Location: {location}
+                  </span>
+                </div>
+              </div>
               <div className="flex flex-wrap gap-2">
                 {tools.map((tool, index) => (
                   <span

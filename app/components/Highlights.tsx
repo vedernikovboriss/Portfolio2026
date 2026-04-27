@@ -72,7 +72,12 @@ const Highlights = () => {
         <div className="flex justify-between lg:grid gap-4 lg:grid-cols-2 lg:gap-16">
           <span className="subtitle-small">Selected Work</span>
           <div className="flex items-center justify-between gap-4">
-            <span className="subtitle-small">Highlights</span>
+            <span className="subtitle-small hidden lg:block">Highlights</span>
+            <span className="subtitle-small lg:hidden">
+              {highlightItems.length < 10
+                ? `0${highlightItems.length} Items`
+                : `${highlightItems.length} Items`}
+            </span>
             <span className="subtitle-small hidden lg:block">Visuals</span>
           </div>
         </div>
@@ -147,7 +152,7 @@ export const Project = () => {
             <div className="flex flex-col gap-8">
               <span className="p-big">{item.title}</span>
               <HighlightMetaRows item={item} />
-              <p className="text-base max-w-none">{item.description}</p>
+              <p className="text-base">{item.description}</p>
             </div>
             <div className="relative w-full aspect-square overflow-hidden rounded-sm">
               <ProjectVideo src={item.videoSrc} imageSrc={item.imageSrc} />
