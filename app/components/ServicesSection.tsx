@@ -70,7 +70,7 @@ const ServicesSection = () => {
               </div>
             ))}
           </div>
-          <ContactCard />
+          {/* <ContactCard /> */}
         </div>
       </div>
     </section>
