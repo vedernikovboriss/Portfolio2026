@@ -110,6 +110,7 @@ function VisualProject({
       className="relative aspect-4/3 w-full overflow-hidden rounded-sm bg-[#101010] sm:aspect-5/4 lg:col-span-8 lg:aspect-9/8"
     >
       <ProjectVideo
+        rootRef={mediaRef}
         src={item.videoSrc}
         imageSrc={item.imageSrc}
         scrollYProgress={scrollYProgress}
@@ -150,23 +151,27 @@ function VisualProject({
 }
 
 function ProjectVideo({
+  rootRef,
   src,
   imageSrc,
   scrollYProgress,
 }: {
+  rootRef: React.RefObject<HTMLDivElement | null>;
   src: string;
   imageSrc: string;
   scrollYProgress: MotionValue<number>;
 }) {
-  const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const shouldLoadRef = useRef(false);
-  const inView = useInView(containerRef, {
-    margin: "25% 0px",
-    amount: 0.05,
+  const hasErrorRef = useRef(false);
+  const inView = useInView(rootRef, {
+    margin: "200px 0px",
+    amount: 0,
   });
   const [shouldLoad, setShouldLoad] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  hasErrorRef.current = hasError;
 
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
   const backgroundScale = useTransform(scrollYProgress, [0, 1], [1.1, 1.18]);
@@ -174,25 +179,43 @@ function ProjectVideo({
   useEffect(() => {
     if (!inView || shouldLoadRef.current) return;
     shouldLoadRef.current = true;
+    setHasError(false);
+    setIsLoaded(false);
     setShouldLoad(true);
   }, [inView]);
 
   useEffect(() => {
+    if (!hasError) return;
+    videoRef.current?.pause();
+  }, [hasError]);
+
+  useEffect(() => {
     const video = videoRef.current;
-    if (!video || !shouldLoad || !isLoaded) return;
+    if (!video || !shouldLoad || hasErrorRef.current) return;
 
     video.muted = true;
 
+    const markLoaded = () => setIsLoaded(true);
+
+    video.addEventListener("loadeddata", markLoaded);
+    video.addEventListener("canplay", markLoaded);
+    video.addEventListener("playing", markLoaded);
+
     if (inView) {
       void video.play().catch(() => {});
-      return;
+    } else {
+      video.pause();
     }
 
-    video.pause();
-  }, [inView, isLoaded, shouldLoad]);
+    return () => {
+      video.removeEventListener("loadeddata", markLoaded);
+      video.removeEventListener("canplay", markLoaded);
+      video.removeEventListener("playing", markLoaded);
+    };
+  }, [inView, shouldLoad, src]);
 
   return (
-    <div ref={containerRef} className="absolute inset-0">
+    <div className="absolute inset-0">
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
           className="absolute inset-0 origin-center will-change-transform"
@@ -212,33 +235,39 @@ function ProjectVideo({
       </div>
 
       <div className="absolute inset-0 z-10 flex items-center justify-center p-4 sm:p-6 lg:p-8">
-        {shouldLoad && !isLoaded ? (
-          <div
-            className="absolute inset-0 flex items-center justify-center p-8"
-            aria-hidden
-          >
-            <div className="aspect-1351/810 w-full max-w-full animate-pulse rounded-sm bg-[#313131]" />
-          </div>
-        ) : null}
-
-        <div className="relative w-full max-w-full overflow-hidden rounded-sm">
+        <div className="relative aspect-1351/810 w-full max-w-full overflow-hidden rounded-sm bg-[#313131]">
           {shouldLoad ? (
             <video
               ref={videoRef}
-              className={`pointer-events-none block w-full bg-[#313131] transition-opacity duration-300 ease-out ${
-                isLoaded ? "opacity-100" : "opacity-0"
-              }`}
+              className="absolute inset-0 h-full w-full object-contain"
               src={src}
-              poster={imageSrc}
               loop
               muted
               playsInline
               preload="auto"
               disablePictureInPicture
               controls={false}
-              onLoadedData={() => setIsLoaded(true)}
-              onCanPlay={() => setIsLoaded(true)}
+              controlsList="nodownload nofullscreen noremoteplayback"
+              onError={() => setHasError(true)}
             />
+          ) : null}
+
+          {!isLoaded || hasError ? (
+            <div className="absolute inset-0">
+              <Image
+                src={imageSrc}
+                alt=""
+                fill
+                className="object-cover"
+                sizes="(min-width: 1024px) 50vw, 100vw"
+              />
+              {shouldLoad ? (
+                <div
+                  className="absolute inset-0 animate-pulse bg-[#313131]/40"
+                  aria-hidden
+                />
+              ) : null}
+            </div>
           ) : null}
         </div>
       </div>
