@@ -1,16 +1,39 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0e0e0e;
-  --foreground: #f4ecec;
+  --background: #060605;
+  --hero-background: #5d5d5d;
+  --foreground: #d1d1c4;
   --accent: #534941;
+
+  /* Unified strokes & dividers */
+  --stroke-width: 1px;
+  --stroke-width-thick: 2px;
+  --stroke-color: var(--foreground);
+  --stroke-muted: color-mix(in oklab, var(--foreground) 10%, transparent);
+  --stroke-soft: color-mix(in oklab, var(--foreground) 30%, transparent);
+  --stroke-hairline: 0 0 0 var(--stroke-width) var(--stroke-color);
+
+  --nav-control-height: 2rem;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --nav-control-height: 2.5rem;
+  }
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-hero-background: var(--hero-background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-bdo-grotesk);
   --font-mono: var(--font-geist-mono);
+  --breakpoint-3xl: 120rem;
+}
+
+@utility grid-cols-16 {
+  grid-template-columns: repeat(16, minmax(0, 1fr));
 }
 
 body {
@@ -20,26 +43,133 @@ body {
   @apply text-sm antialiased sm:text-base;
 }
 
-/* Native anchor scroll (e.g. reduced motion, no Lenis): clear fixed nav */
+::selection {
+  background-color: var(--foreground);
+  color: var(--background);
+}
+
+::-moz-selection {
+  background-color: var(--foreground);
+  color: var(--background);
+}
+
+html {
+  background: var(--background);
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.top-site-shadow {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 45;
+  height: 5rem;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgb(0 0 0 / 0.6) 0%,
+    rgb(0 0 0 / 0.2) 50%,
+    rgb(0 0 0 / 0.05) 80%,
+    transparent 100%
+  );
+}
+
 main section[id] {
-  scroll-margin-top: 6rem;
+  scroll-margin-top: 4.5rem;
+}
+
+@media (min-width: 1024px) {
+  main section[id] {
+    scroll-margin-top: 6rem;
+  }
 }
 
 @layer components {
+  .page-shell {
+    @apply relative mx-auto w-full max-w-[2400px];
+  }
+
   .section-base {
-    @apply flex flex-col gap-32 px-4 lg:px-[2vw] md:py-20 py-10;
+    @apply flex flex-col gap-12 px-4 py-10 sm:gap-16 sm:px-6 md:gap-20 md:py-24 lg:gap-32 lg:px-[2vw];
   }
+
   .subtitle-small {
-    @apply text-sm font-medium uppercase tracking-wider opacity-70;
+    @apply text-xs font-medium uppercase tracking-wider opacity-70 sm:text-sm;
   }
+
   .p-big {
-    @apply max-w-5xl text-2xl font-medium tracking-wide leading-[1.2] sm:text-4xl sm:leading-[1.1] md:text-5xl md:leading-[1.1];
+    @apply max-w-5xl text-2xl font-medium tracking-wide leading-[1.3] sm:text-4xl sm:leading-[1.1] md:text-5xl md:leading-[1.1];
   }
-  p {
-    @apply text-base max-w-sm;
+
+  .paragraph-hero {
+    @apply max-w-sm text-lg leading-[1.35] sm:text-xl lg:text-xl lg:leading-[1.3];
+  }
+  .paragraph-big-line {
+    display: block;
+  }
+  p:not(.p-big):not(.paragraph-hero) {
+    @apply max-w-sm text-sm sm:text-base;
   }
   .p-secondary {
     @apply max-w-sm text-sm opacity-70;
+  }
+
+  /* Full-width section divider */
+  .divider {
+    width: 100%;
+    height: var(--stroke-width);
+    background-color: var(--stroke-muted);
+    border: none;
+  }
+
+  .site-grain-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    pointer-events: none;
+    isolation: isolate;
+  }
+
+  /* Structural borders */
+  .stroke-b {
+    border-bottom: var(--stroke-width) solid var(--stroke-muted);
+  }
+
+  /* Scroll progress */
+  .progress-line {
+    height: var(--stroke-width-thick);
+    background-color: var(--stroke-color);
+  }
+
+  /* Top-left + bottom-right corner accents */
+  .corner-strokes {
+    position: relative;
+    display: inline-block;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .corner-strokes::before,
+  .corner-strokes::after {
+    content: "";
+    position: absolute;
+    width: 0.35rem;
+    height: 0.35rem;
+    pointer-events: none;
+  }
+
+  .corner-strokes::before {
+    top: 0;
+    left: 0;
+    border-top: var(--stroke-width) solid var(--stroke-soft);
+    border-left: var(--stroke-width) solid var(--stroke-soft);
+  }
+
+  .corner-strokes::after {
+    right: 0;
+    bottom: 0;
+    border-right: var(--stroke-width) solid var(--stroke-soft);
+    border-bottom: var(--stroke-width) solid var(--stroke-soft);
   }
 
   /**
@@ -58,7 +188,7 @@ main section[id] {
     position: absolute;
     left: 0;
     width: 100%;
-    height: 1px;
+    height: var(--stroke-width);
     background: currentColor;
     transform: scaleX(0);
     /* Rest: collapsed toward the right */
@@ -84,10 +214,7 @@ main section[id] {
   }
 }
 
-html {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
-}
+/* Native anchor scroll (e.g. reduced motion, no Lenis): clear fixed nav */
 html::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }

@@ -2,9 +2,16 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
+import { ScrollTrigger } from "@/app/lib/gsap";
 
 export default function LenisScroll() {
   useEffect(() => {
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+
+    window.scrollTo(0, 0);
+
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
@@ -13,12 +20,15 @@ export default function LenisScroll() {
 
     const lenis = new Lenis({
       // Simple defaults that feel good for most portfolios.
-      duration: 1.15,
+      duration: 1.2,
       smoothWheel: true,
       autoResize: false, // we'll call resize() via ResizeObserver
     });
 
     window.__lenis = lenis;
+    lenis.scrollTo(0, { immediate: true });
+
+    const unsubscribeScrollTrigger = lenis.on("scroll", ScrollTrigger.update);
 
     let rafResizeId: number | null = null;
     const scheduleResize = () => {
@@ -26,6 +36,7 @@ export default function LenisScroll() {
       rafResizeId = requestAnimationFrame(() => {
         rafResizeId = null;
         lenis.resize();
+        ScrollTrigger.refresh();
       });
     };
 
@@ -41,7 +52,10 @@ export default function LenisScroll() {
     // Initial resize after layout settles
     requestAnimationFrame(() => {
       lenis.resize();
-      requestAnimationFrame(() => lenis.resize());
+      requestAnimationFrame(() => {
+        lenis.resize();
+        ScrollTrigger.refresh();
+      });
     });
 
     // Re-measure when content height changes (accordions, images, etc.)
@@ -104,6 +118,7 @@ export default function LenisScroll() {
       window.removeEventListener("mousemove", onPointerMove);
       window.removeEventListener("scroll", onWindowScroll, true);
       unsubscribeLenisScroll();
+      unsubscribeScrollTrigger();
       observer.disconnect();
       lenis.destroy();
       delete window.__lenis;

@@ -1,12 +1,24 @@
-export const projects = [
+export type Project = {
+  id: number;
+  title: string;
+  year: number;
+  industry: string;
+  type: string;
+  tools: string[];
+  link?: string;
+  location: string;
+  photos: string[];
+  description: string[];
+};
+
+export const projects: Project[] = [
   {
     id: 1,
     title: "Architech",
     year: 2026,
     industry: "Technology",
-    type: "Full Stack",
+    type: "Full Package",
     tools: ["NextJS", "View Transition", "Framer Motion", "GSAP", "Contentful"],
-    link: "reverv",
     location: "Spain",
     photos: [
       `/ArchivePhotos/Architech/img1.avif`,
@@ -23,7 +35,7 @@ export const projects = [
     title: "VoiceTool AI",
     year: 2025,
     industry: "Technology",
-    type: "Full Stack",
+    type: "Full Package",
     tools: ["Webflow", "GSAP", "JS"],
     location: "USA",
     photos: [
@@ -40,7 +52,7 @@ export const projects = [
     title: "HSCS",
     year: 2025,
     industry: "Historical Research",
-    type: "Full Stack",
+    type: "Full Package",
     location: "Spain",
     tools: ["Webflow", "GSAP", "JS"],
     photos: [
@@ -57,8 +69,7 @@ export const projects = [
     title: "Liftly AI",
     year: 2025,
     industry: "Technology",
-    type: "Full Stack",
-    link: "reverv",
+    type: "Full Package",
     location: "USA",
     tools: ["Webflow", "GSAP", "JS"],
     photos: [
@@ -72,10 +83,10 @@ export const projects = [
   },
   {
     id: 5,
-    title: "Rybniy 1",
+    title: "Rybniy №1",
     year: 2025,
     industry: "Seafood Delivery",
-    type: "Full Stack",
+    type: "Full Package",
     location: "Russia",
     tools: ["Tilda", "JavaScript"],
     photos: [
@@ -91,10 +102,9 @@ export const projects = [
   {
     id: 6,
     title: "Tehotdel",
-    year: 2025,
+    year: 2026,
     industry: "Door Installation",
-    type: "Full Stack",
-    link: "veve",
+    type: "Full Package",
     location: "Russia",
     tools: ["NextJS", "Framer Motion", "GSAP", "View Transition"],
     photos: [

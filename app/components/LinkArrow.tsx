@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { isExternalUrl } from "@/app/data/siteLinks";
 
 const LinkArrow = ({
   href,
@@ -10,9 +11,13 @@ const LinkArrow = ({
   children: React.ReactNode;
   className?: string;
 }) => {
+  const external = isExternalUrl(href);
+
   return (
     <Link
       href={href}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noopener noreferrer" : undefined}
       className={`text-base flex items-center gap-1 link-line leading-[1.2] ${className}`}
     >
       {children}

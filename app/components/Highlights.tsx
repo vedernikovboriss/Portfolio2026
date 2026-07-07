@@ -1,401 +1,237 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
-
-type HighlightItem = {
-  id: number;
-  title: string;
-  description: string;
-  year: number;
-  industry: string;
-  type: string;
-  videoSrc: string;
-  imageSrc: string;
-};
-
-const highlightItems: HighlightItem[] = [
-  {
-    id: 1,
-    title: "Architech",
-    description:
-      "Architech is a platform that allows you to create and manage your projects. Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    year: 2026,
-    industry: "Case Study",
-    type: "Full Stack",
-    videoSrc: "https://portfolio-boris-vedernikov.b-cdn.net/objectiver.mp4",
-    imageSrc: "/bgPhotos/bg3.avif",
-  },
-  {
-    id: 2,
-    title: "VoiceTool AI",
-    description:
-      "Developed and designed a technological modern website for an AI agency that offers automatisation services with AI.",
-    year: 2025,
-    industry: "Consulting",
-    type: "Full Stack",
-    videoSrc:
-      "https://portfolio-boris-vedernikov.b-cdn.net/VoiceToolAI_Compressed.mp4",
-    imageSrc: "/bgPhotos/bg1.avif",
-  },
-  {
-    id: 3,
-    title: "HSCS",
-    description:
-      "A concept website based on the paper written by me about the Spanish Civil War and built for educational purposes.",
-    year: 2025,
-    industry: "Case Study",
-    type: "Full Stack",
-    videoSrc:
-      "https://portfolio-boris-vedernikov.b-cdn.net/LiftlyAICompressed.mp4",
-    imageSrc: "/bgPhotos/bg2.avif",
-  },
-  {
-    id: 4,
-    title: "TehOtdel",
-    description:
-      "Developed and designed a website for a company that provides technical support for computers and smartphones.",
-    year: 2025,
-    industry: "Door Installation",
-    type: "Web Development",
-    videoSrc:
-      "https://portfolio-boris-vedernikov.b-cdn.net/LiftlyAICompressed.mp4",
-    imageSrc: "/bgPhotos/bg2.avif",
-  },
-];
+import {
+  motion,
+  useInView,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
+import { highlightItems } from "@/app/data/highlights";
+import Link from "next/link";
 
 const Highlights = () => {
   return (
-    <section id="works" className="section-base flex flex-col gap-16">
+    <section
+      id="works"
+      className="section-base flex flex-col gap-10 md:gap-14 lg:gap-16"
+    >
       <div className="flex flex-col gap-4">
-        <div className="w-full h-px bg-foreground/10" />
-        <div className="flex justify-between lg:grid gap-4 lg:grid-cols-2 lg:gap-16">
-          <span className="subtitle-small">Selected Work</span>
-          <div className="flex items-center justify-between gap-4">
-            <span className="subtitle-small hidden lg:block">Highlights</span>
-            <span className="subtitle-small lg:hidden">
-              {highlightItems.length < 10
-                ? `0${highlightItems.length} Items`
-                : `${highlightItems.length} Items`}
-            </span>
-            <span className="subtitle-small hidden lg:block">Visuals</span>
-          </div>
-        </div>
+        <div className="divider" />
+        <h2 className="subtitle-small flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-foreground inline-block" />
+          Selected Work
+        </h2>
       </div>
-      <Project />
+
+      <ProjectList />
     </section>
   );
 };
 
 export default Highlights;
 
-export const Project = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const activeItem = highlightItems[activeIndex];
-  const totalItems = highlightItems.length;
-  const contentVariants = {
-    hidden: { opacity: 0, y: 20 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.22, 1, 0.36, 1] as const,
-        staggerChildren: 0.1,
-        delayChildren: 0.05,
-      },
-    },
-    exit: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: [0.22, 1, 0.36, 1] as const,
-        staggerChildren: 0.06,
-        staggerDirection: -1,
-      },
-    },
-  };
-
-  const contentItemVariants = {
-    hidden: { opacity: 0, y: 14 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
-    },
-    exit: {
-      opacity: 0,
-      y: 20,
-      transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] as const },
-    },
-  };
-
-  const previousProject = () => {
-    setActiveIndex((prev) => (prev - 1 + totalItems) % totalItems);
-  };
-
-  const nextProject = () => {
-    setActiveIndex((prev) => (prev + 1) % totalItems);
-  };
-
-  const slideCounter = `${String(activeIndex + 1).padStart(2, "0")} / ${String(
-    totalItems,
-  ).padStart(2, "0")}`;
-
+function ProjectList() {
   return (
-    <>
-      {/* Tablet & phone: all projects stacked, text + video per card */}
-      <div className="flex flex-col gap-16 lg:hidden">
-        {highlightItems.map((item, index) => (
-          <article key={item.id} className="flex flex-col gap-10">
-            <div className="flex flex-col gap-8">
-              <div className="w-full flex justify-between items-center">
-                <span className="p-big">{item.title}</span>
-                <span className="subtitle-small text-2xl!">
-                  {index + 1 < 10 ? `0${index + 1}` : index + 1}
-                </span>
-              </div>
-              <HighlightMetaRows item={item} />
-              <p className="text-base">{item.description}</p>
-            </div>
-            <div className="relative w-full aspect-square overflow-hidden rounded-sm">
-              <ProjectVideo src={item.videoSrc} imageSrc={item.imageSrc} />
-            </div>
-          </article>
-        ))}
-      </div>
-
-      {/* Laptop+: single active project + slider controls */}
-      <div className="hidden grid-cols-2 gap-16 lg:grid">
-        <div className="flex flex-col gap-8 justify-between">
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={activeItem.id}
-              className="flex flex-col gap-8"
-              variants={contentVariants}
-              initial="hidden"
-              animate="show"
-              exit="exit"
-            >
-              <motion.span variants={contentItemVariants} className="p-big">
-                {activeItem.title}
-              </motion.span>
-              <motion.div
-                variants={contentItemVariants}
-                className="flex flex-col"
-              >
-                <motion.div
-                  variants={contentItemVariants}
-                  className="flex items-center justify-between gap-2 border-y border-foreground/10 rounded-sm py-4"
-                >
-                  <span className="subtitle-small text-xs!">Year</span>
-                  <span className="subtitle-small opacity-100! text-xs!">
-                    {activeItem.year}
-                  </span>
-                </motion.div>
-                <motion.div
-                  variants={contentItemVariants}
-                  className="flex items-center justify-between gap-2 border-b border-foreground/10 rounded-sm py-4"
-                >
-                  <span className="subtitle-small text-xs!">Industry</span>
-                  <span className="subtitle-small opacity-100! text-xs!">
-                    {activeItem.industry}
-                  </span>
-                </motion.div>
-                <motion.div
-                  variants={contentItemVariants}
-                  className="flex items-center justify-between gap-2 border-b border-foreground/10 rounded-sm py-4"
-                >
-                  <span className="subtitle-small text-xs!">Type</span>
-                  <span className="subtitle-small opacity-100! text-xs!">
-                    {activeItem.type}
-                  </span>
-                </motion.div>
-              </motion.div>
-              <motion.p variants={contentItemVariants}>
-                {activeItem.description}
-              </motion.p>
-            </motion.div>
-          </AnimatePresence>
-
-          <div className="flex gap-8 w-full justify-between items-center">
-            <div className="flex items-end gap-2">
-              <HighlightButton onClick={previousProject} left={true} />
-              <HighlightButton onClick={nextProject} left={false} />
-            </div>
-            <span className="subtitle-small text-base! leading-none">
-              {slideCounter}
-            </span>
-          </div>
-        </div>
-        <div className="relative w-full aspect-square overflow-hidden rounded-sm">
-          <AnimatePresence mode="sync" initial={false}>
-            <motion.div
-              key={activeItem.id}
-              className="absolute inset-0"
-              initial={{ y: "100%", opacity: 1 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: "-100%", opacity: 1 }}
-              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <ProjectVideo
-                src={activeItem.videoSrc}
-                imageSrc={activeItem.imageSrc}
-              />
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </div>
-    </>
+    <div className="flex flex-col gap-10 md:gap-14 lg:gap-16">
+      {highlightItems.map((item, index) => (
+        <ProjectRow key={item.id} item={item} index={index} />
+      ))}
+    </div>
   );
-};
+}
 
-function HighlightMetaRows({ item }: { item: HighlightItem }) {
+function ProjectRow({
+  item,
+  index,
+}: {
+  item: (typeof highlightItems)[number];
+  index: number;
+}) {
+  const mediaRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: mediaRef,
+    offset: ["start end", "end start"],
+  });
+
   return (
-    <div className="flex flex-col">
-      <div className="flex items-center justify-between gap-2 border-y border-foreground/10 rounded-sm py-4">
-        <span className="subtitle-small text-xs!">Year</span>
-        <span className="subtitle-small opacity-100! text-xs!">
-          {item.year}
+    <div className="flex flex-col gap-6 sm:gap-8 lg:grid lg:grid-cols-16 lg:gap-10">
+      <div className="lg:col-span-2">
+        <span className="corner-strokes">
+          <span className="subtitle-small text-xs!">
+            SW#{index + 1 < 10 ? `0${index + 1}` : index + 1}
+          </span>
         </span>
       </div>
-      <div className="flex items-center justify-between gap-2 border-b border-foreground/10 rounded-sm py-4">
-        <span className="subtitle-small text-xs!">Industry</span>
-        <span className="subtitle-small opacity-100! text-xs!">
-          {item.industry}
-        </span>
-      </div>
-      <div className="flex items-center justify-between gap-2 border-b border-foreground/10 rounded-sm py-4">
-        <span className="subtitle-small text-xs!">Type</span>
-        <span className="subtitle-small opacity-100! text-xs!">
-          {item.type}
-        </span>
+
+      <VisualProject
+        item={item}
+        mediaRef={mediaRef}
+        scrollYProgress={scrollYProgress}
+      />
+
+      <div className="col-span-6 flex flex-col gap-8 items-start">
+        <div className="flex w-full items-center justify-between">
+          <span className="p-big text-2xl! sm:text-3xl! lg:text-3xl!">
+            {item.title}
+          </span>
+        </div>
+
+        <p className="text-sm sm:text-base">{item.description}</p>
+
+        <div className="flex w-full flex-wrap gap-2">
+          {[item.year, item.industry, item.country].map((tag, tagIndex) => (
+            <div
+              key={tagIndex}
+              className="w-fit rounded-sm bg-foreground/5 px-2 py-2 text-sm! font-medium text-foreground/50"
+            >
+              {tag}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
 }
 
-function ProjectVideo({ src, imageSrc }: { src: string; imageSrc: string }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [srcToLoad, setSrcToLoad] = useState<string | null>(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    setIsLoaded(false);
-    setSrcToLoad(src);
-  }, [src]);
-
-  /** Mobile Safari often ignores `autoPlay` alone; muted + playsInline + programmatic play helps */
-  useEffect(() => {
-    if (!isLoaded || !videoRef.current) return;
-    const v = videoRef.current;
-    v.muted = true;
-    void v.play().catch(() => {});
-  }, [isLoaded, srcToLoad]);
-
+function VisualProject({
+  item,
+  mediaRef,
+  scrollYProgress,
+}: {
+  item: (typeof highlightItems)[number];
+  mediaRef: React.RefObject<HTMLDivElement | null>;
+  scrollYProgress: MotionValue<number>;
+}) {
   return (
-    <div className="relative w-full h-full bg-[#313131] p-4 overflow-hidden flex items-center justify-center">
-      {srcToLoad ? (
+    <div
+      ref={mediaRef}
+      className="relative aspect-4/3 w-full overflow-hidden rounded-sm bg-[#101010] sm:aspect-5/4 lg:col-span-8 lg:aspect-9/8"
+    >
+      <ProjectVideo
+        src={item.videoSrc}
+        imageSrc={item.imageSrc}
+        scrollYProgress={scrollYProgress}
+      />
+      {item.link ? (
         <>
-          {!isLoaded && (
-            <div
-              className="absolute inset-0 flex items-center justify-center z-10 p-4"
-              aria-hidden
+          <Link
+            href={item.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute inset-0 z-20"
+            aria-label={`Visit ${item.title}`}
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute bottom-2 right-2 z-30 flex items-center justify-center gap-2 rounded-full bg-background pl-4 pr-2 py-2"
+          >
+            <span className="text-xs font-medium">Visit Website</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="var(--foreground)"
+              className="size-[1.1rem]"
             >
-              <div className="aspect-1351/810 w-full rounded-sm bg-[#313131] animate-pulse" />
-            </div>
-          )}
-
-          <div className="relative z-10 overflow-hidden rounded-sm">
-            <video
-              ref={videoRef}
-              className={`w-full transition-opacity bg-[#313131] duration-300 ease-out ${
-                isLoaded ? "opacity-100" : "opacity-0"
-              }`}
-              src={srcToLoad}
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="metadata"
-              onLoadedData={() => setIsLoaded(true)}
-            />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"
+              />
+            </svg>
           </div>
         </>
       ) : null}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src={imageSrc}
-          alt="Project Video"
-          fill
-          className="object-cover opacity-20"
-          style={{
-            filter: "contrast(1.06) brightness(1.08) grayscale(0.2)",
-            zIndex: 0,
-          }}
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute z-2 inset-0"
-          style={{
-            zIndex: 2,
-            opacity: 0.18,
-            mixBlendMode: "screen",
-            backgroundImage:
-              "url(\"data:image/svg+xml;utf8,<svg width='120' height='120' viewBox='0 0 120 120' fill='none' xmlns='http://www.w3.org/2000/svg'><filter id='grain'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/></filter><rect width='120' height='120' filter='url(%23grain)'/></svg>\")",
-            backgroundRepeat: "repeat",
-          }}
-        />
-      </div>
     </div>
   );
 }
 
-export const HighlightButton = ({
-  onClick,
-  left,
+function ProjectVideo({
+  src,
+  imageSrc,
+  scrollYProgress,
 }: {
-  onClick: () => void;
-  left: boolean;
-}) => {
+  src: string;
+  imageSrc: string;
+  scrollYProgress: MotionValue<number>;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const inView = useInView(containerRef, {
+    margin: "120px 0px",
+    amount: 0.2,
+  });
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+  const backgroundScale = useTransform(scrollYProgress, [0, 1], [1.1, 1.18]);
+
+  useEffect(() => {
+    if (inView) return;
+    setIsLoaded(false);
+  }, [inView]);
+
+  /** Mobile Safari often ignores `autoPlay` alone; muted + playsInline + programmatic play helps */
+  useEffect(() => {
+    if (!inView || !isLoaded || !videoRef.current) return;
+    const v = videoRef.current;
+    v.muted = true;
+    v.currentTime = 0;
+    void v.play().catch(() => {});
+  }, [inView, isLoaded]);
+
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="relative w-12 h-12 rounded-full bg-(--accent) flex items-center justify-center cursor-pointer"
-    >
-      {left ? (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={2}
-          stroke="currentColor"
-          className="size-6"
+    <div ref={containerRef} className="absolute inset-0">
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div
+          className="absolute inset-0 origin-center will-change-transform"
+          style={{ y: backgroundY, scale: backgroundScale }}
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+          <Image
+            src={imageSrc}
+            alt=""
+            fill
+            className="object-cover opacity-25"
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            style={{
+              filter: "contrast(1.26) brightness(1.18)",
+            }}
           />
-        </svg>
-      ) : (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={2}
-          stroke="currentColor"
-          className="size-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-          />
-        </svg>
-      )}
-    </button>
+        </motion.div>
+      </div>
+
+      <div className="absolute inset-0 z-10 flex items-center justify-center p-4 sm:p-6 lg:p-8">
+        {inView ? (
+          <>
+            {!isLoaded && (
+              <div
+                className="absolute inset-0 flex items-center justify-center p-8"
+                aria-hidden
+              >
+                <div className="aspect-1351/810 w-full max-w-full animate-pulse rounded-sm bg-[#313131]" />
+              </div>
+            )}
+
+            <div className="relative w-full max-w-full overflow-hidden rounded-sm">
+              <video
+                ref={videoRef}
+                className={`block w-full bg-[#313131] transition-opacity duration-300 ease-out ${
+                  isLoaded ? "opacity-100" : "opacity-0"
+                }`}
+                src={src}
+                loop
+                muted
+                playsInline
+                preload="auto"
+                onLoadedData={() => setIsLoaded(true)}
+              />
+            </div>
+          </>
+        ) : null}
+      </div>
+    </div>
   );
-};
+}

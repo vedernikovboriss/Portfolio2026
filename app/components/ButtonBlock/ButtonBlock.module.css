@@ -1,0 +1,192 @@
+.button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: none;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+  border-radius: 0.375rem;
+  color: var(--foreground);
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.button[data-variant="default"] {
+  background-color: color-mix(in oklab, var(--foreground) 20%, transparent);
+  gap: 2rem;
+}
+
+.button[data-variant="small"] {
+  background-color: #3b3b39;
+  gap: 1rem;
+  height: var(--nav-control-height);
+  box-sizing: border-box;
+  padding-block: 0;
+}
+
+.button[data-variant="big"] {
+  background-color: color-mix(in oklab, var(--foreground) 20%, transparent);
+  font-size: 1.25rem !important;
+  padding: 1rem 1.5rem !important;
+  gap: 2rem;
+  border-radius: 0.5rem !important;
+}
+
+.iconBox {
+  background-color: var(--background);
+  border-radius: 0.375rem;
+}
+
+.button[data-variant="default"] .iconBox {
+  padding: 0.5rem;
+}
+
+.button[data-variant="small"] .iconBox {
+  padding: 0.25rem;
+}
+
+@media (max-width: 1023px) {
+  .button[data-variant="small"] {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    gap: 0.5rem;
+    padding: 0 0.375rem 0 0.625rem;
+  }
+
+  .button[data-variant="small"] .iconBox {
+    padding: 0.1875rem;
+  }
+
+  .button[data-variant="small"] .iconWrap {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+}
+
+.button[data-variant="big"] .iconBox {
+  padding: 0.6rem;
+}
+
+.labelWrap {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.labelMeasure {
+  visibility: hidden;
+  display: block;
+  white-space: nowrap;
+  pointer-events: none;
+  height: 1.25em;
+}
+
+.label,
+.icon {
+  transform-origin: center;
+  will-change: translate, scale;
+  transition:
+    translate 0.72s cubic-bezier(0.19, 1, 0.22, 1),
+    scale 0.64s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.labelPrimary {
+  translate: 0 0;
+  scale: 1;
+}
+
+.labelSecondary {
+  translate: 0 115%;
+  scale: 0.6;
+}
+
+.iconWrap {
+  position: relative;
+  width: 1rem;
+  height: 1rem;
+  overflow: hidden;
+}
+
+.button[data-variant="big"] .iconWrap {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.icon {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.iconPrimary {
+  translate: 0 0;
+  scale: 1;
+}
+
+.iconSecondary {
+  translate: -115% 115%;
+  scale: 1.6;
+}
+
+.button:hover .label,
+.button:hover .icon {
+  transition:
+    translate 0.78s cubic-bezier(0.19, 1, 0.22, 1),
+    scale 0.68s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.button:hover .icon {
+  transition-delay: 0.045s;
+}
+
+.button:hover .labelPrimary {
+  translate: 0 -115%;
+  scale: 0.6;
+}
+
+.button:hover .labelSecondary {
+  translate: 0 0;
+  scale: 1;
+}
+
+.button:hover .iconPrimary {
+  translate: 115% -115%;
+  scale: 1.6;
+}
+
+.button:hover .iconSecondary {
+  translate: 0 0;
+  scale: 1;
+}
+
+.button:not(:hover) .label,
+.button:not(:hover) .icon {
+  transition:
+    translate 0.56s cubic-bezier(0.45, 0, 0.15, 1),
+    scale 0.48s cubic-bezier(0.45, 0, 0.15, 1);
+  transition-delay: 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .label,
+  .icon,
+  .button:hover .label,
+  .button:hover .icon,
+  .button:not(:hover) .label,
+  .button:not(:hover) .icon {
+    transition-duration: 0.01ms;
+    transition-delay: 0s;
+  }
+}

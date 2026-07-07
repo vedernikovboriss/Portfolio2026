@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import LinkArrow from "./LinkArrow";
 import Image from "next/image";
+import { isExternalUrl } from "@/app/data/siteLinks";
 
 export function ProjectCard({
   id,
@@ -16,6 +17,7 @@ export function ProjectCard({
   industry,
   onToggle,
   photos,
+  isLast = false,
 }: {
   id: number;
   title: string;
@@ -29,6 +31,7 @@ export function ProjectCard({
   location: string;
   isOpen: boolean;
   onToggle: () => void;
+  isLast?: boolean;
 }) {
   const [isLg, setIsLg] = useState(false);
 
@@ -41,11 +44,11 @@ export function ProjectCard({
   }, []);
 
   return (
-    <div className="flex flex-col border-b border-foreground/10 ">
+    <div className={`flex flex-col${isLast ? "" : " stroke-b"}`}>
       <motion.button
         type="button"
         onClick={onToggle}
-        className="relative flex justify-between items-center lg:grid cursor-pointer gap-4 py-6 text-left sm:gap-6 lg:grid-cols-6 lg:gap-8 lg:py-8"
+        className="relative flex cursor-pointer gap-3 py-5 text-left flex-row justify-between items-center sm:gap-6 sm:py-6 lg:grid lg:grid-cols-6 lg:gap-8 lg:py-8"
         initial="rest"
         animate={isOpen ? "open" : "rest"}
         whileHover="hover"
@@ -73,8 +76,8 @@ export function ProjectCard({
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                strokeWidth={3}
-                stroke="currentColor"
+                strokeWidth={2.5}
+                stroke="var(--foreground)"
                 className="size-6"
               >
                 <path
@@ -86,7 +89,7 @@ export function ProjectCard({
             </motion.div>
           </div>
           <motion.h3
-            className="z-10 max-w-full text-2xl font-medium tracking-wide sm:max-w-3xl sm:text-3xl"
+            className="z-10 max-w-full text-xl font-medium tracking-wide sm:text-2xl lg:max-w-3xl"
             variants={{
               rest: { marginLeft: 0 },
               hover: { marginLeft: isLg ? "2rem" : 0 },
@@ -97,9 +100,13 @@ export function ProjectCard({
             {title}
           </motion.h3>
         </div>
-        <span className="lg:hidden text-sm font-medium">{year}</span>
+        <span className="lg:hidden text-sm font-medium bg-foreground/10 text-foreground/70 px-2 py-1 rounded-md justify-self-start">
+          {year}
+        </span>
         <div className="hidden lg:contents gap-x-4 gap-y-2 text-sm font-medium">
-          <span className="lg:self-center">{year}</span>
+          <span className="lg:self-center bg-foreground/10 text-foreground/70 px-2 py-1 rounded-md justify-self-start">
+            {year}
+          </span>
           <span className="lg:self-center">{industry}</span>
           <span className="lg:self-center">{type}</span>
           <span className="min-w-0 wrap-break-word lg:self-center">
@@ -123,41 +130,30 @@ export function ProjectCard({
             <div className="flex flex-col items-start gap-6 pt-4 pb-6 sm:gap-8 sm:pb-8">
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
                 {description.map((item, index) => (
-                  <p key={index} className="max-w-none">
-                    {item}
-                  </p>
+                  <p key={index}>{item}</p>
                 ))}
               </div>
 
-              {link && (
-                <LinkArrow href={link} className="leading-[1.2]">
+              {link && isExternalUrl(link) && (
+                <LinkArrow href={link} className="leading-[1.2] mt-4">
                   Visit Website
                 </LinkArrow>
               )}
               <div className="lg:hidden flex flex-col gap-2">
                 <span className="subtitle-small text-xs!">Project Details</span>
                 <div className="flex flex-col gap-2">
-                  <span className="text-base font-medium">
+                  <span className="text-sm font-medium">
                     Industry: {industry}
                   </span>
-                  <span className="text-base font-medium">Type: {type}</span>
-                  <span className="text-base font-medium">
+                  <span className="text-sm font-medium">Type: {type}</span>
+                  <span className="text-sm font-medium">
                     Location: {location}
                   </span>
                 </div>
               </div>
-              <div className="flex flex-wrap gap-2">
-                {tools.map((tool, index) => (
-                  <span
-                    key={index}
-                    className="text-xs opacity-60 uppercase font-medium self-center tracking-wider py-1 px-2 border border-foreground/30 rounded-full"
-                  >
-                    {tool}
-                  </span>
-                ))}
-              </div>
             </div>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-2">
+
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-2 mt-4">
               {photos &&
                 photos.map((photo, index) => (
                   <ProjectPhoto key={index} src={photo} />
@@ -173,7 +169,7 @@ export function ProjectCard({
 
 function ProjectPhoto({ src }: { src: string }) {
   return (
-    <div className="relative flex aspect-4/3 w-full items-center justify-center overflow-hidden rounded-sm bg-[#313131] p-2 sm:p-4">
+    <div className="relative flex aspect-5/4 w-full items-center justify-center overflow-hidden rounded-sm bg-foreground/10 p-2 sm:p-4">
       <div className="relative h-full w-full">
         <Image
           className="z-10 rounded-sm object-contain duration-300 ease-out"

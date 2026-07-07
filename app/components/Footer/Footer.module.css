@@ -1,0 +1,125 @@
+.iconBox {
+  background-color: color-mix(in oklab, var(--foreground) 20%, transparent);
+  border-radius: 0.375rem;
+  padding: 0.75rem;
+  flex-shrink: 0;
+}
+
+.iconWrap {
+  position: relative;
+  width: 1.5rem;
+  height: 1.5rem;
+  overflow: hidden;
+}
+
+.icon {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: center;
+  will-change: translate, scale;
+  transition:
+    translate 0.76s cubic-bezier(0.19, 1, 0.22, 1),
+    scale 0.66s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.labelWrap {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  min-width: 0;
+  flex: 1;
+}
+
+.labelMeasure {
+  visibility: hidden;
+  display: block;
+  white-space: nowrap;
+  pointer-events: none;
+  line-height: 1;
+}
+
+.label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  transform-origin: left center;
+  will-change: translate, scale;
+  transition:
+    translate 0.76s cubic-bezier(0.19, 1, 0.22, 1),
+    scale 0.66s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.labelPrimary {
+  translate: 0 0;
+  scale: 1;
+}
+
+.labelSecondary {
+  translate: 0 115%;
+  scale: 0.92;
+}
+
+.iconPrimary {
+  translate: 0 0;
+  scale: 1;
+}
+
+.iconSecondary {
+  translate: -115% 115%;
+  scale: 1.6;
+}
+
+.navLink:hover .label,
+.navLink:hover .icon {
+  transition:
+    translate 0.82s cubic-bezier(0.19, 1, 0.22, 1),
+    scale 0.72s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.navLink:hover .icon {
+  transition-delay: 0.04s;
+}
+
+.navLink:hover .labelPrimary {
+  translate: 0 -115%;
+  scale: 0.92;
+}
+
+.navLink:hover .labelSecondary {
+  translate: 0 0;
+  scale: 1;
+}
+
+.navLink:hover .iconPrimary {
+  translate: 115% -115%;
+  scale: 1.6;
+}
+
+.navLink:hover .iconSecondary {
+  translate: 0 0;
+  scale: 1;
+}
+
+.navLink:not(:hover) .label,
+.navLink:not(:hover) .icon {
+  transition:
+    translate 0.58s cubic-bezier(0.45, 0, 0.15, 1),
+    scale 0.5s cubic-bezier(0.45, 0, 0.15, 1);
+  transition-delay: 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .label,
+  .icon,
+  .navLink:hover .label,
+  .navLink:hover .icon,
+  .navLink:not(:hover) .label,
+  .navLink:not(:hover) .icon {
+    transition-duration: 0.01ms;
+    transition-delay: 0s;
+  }
+}
