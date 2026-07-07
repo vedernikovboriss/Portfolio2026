@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import localFont from "next/font/local";
 
@@ -6,7 +6,9 @@ import "./globals.css";
 import LenisScroll from "./components/LenisScroll";
 import Texture from "./components/Texture";
 import Preloader from "./components/Preloader/Preloader";
+import SeoJsonLd from "./components/SeoJsonLd";
 import { SoundProvider } from "./components/SoundProvider";
+import { createSiteMetadata } from "./lib/seo";
 
 const bdoGrotesk = localFont({
   src: [
@@ -40,9 +42,12 @@ const bdoGrotesk = localFont({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "BorisVV",
-  description: "Web Portfolio of Boris Vedernikov",
+export const metadata: Metadata = createSiteMetadata();
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#060605",
 };
 
 export default function RootLayout({
@@ -53,6 +58,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${bdoGrotesk.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
+        <SeoJsonLd />
         <Script
           id="scroll-restoration"
           strategy="beforeInteractive"

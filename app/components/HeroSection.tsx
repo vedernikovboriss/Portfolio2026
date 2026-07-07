@@ -111,7 +111,9 @@ const HeroSection = () => {
               <Logo className="block h-auto w-full" />
             </div>
           </div>
-          <p ref={paragraphRef} className="paragraph-hero opacity-70" />
+          <p ref={paragraphRef} className="paragraph-hero opacity-70">
+            {PARAGRAPH_TEXT}
+          </p>
           <ButtonBlock className="button-hero">Book a Call</ButtonBlock>
         </div>
       </div>

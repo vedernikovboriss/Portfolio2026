@@ -6,7 +6,7 @@ import { motion, useReducedMotion } from "framer-motion";
 const PATH_1 = "M 0 0 L 100 0 L 100 97 Q 50 100 0 97 Z";
 const PATH_2 = "M 0 0 L 100 0 L 100 85 Q 50 100 0 85 Z";
 
-const DURATION = 1.35;
+const DURATION = 1.45;
 /** Stronger ease-in-out — longer hold, snappier middle, heavier settle */
 const EASE = [0.86, 0, 0.14, 1] as const;
 

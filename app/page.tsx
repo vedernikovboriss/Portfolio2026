@@ -15,6 +15,9 @@ export default function Home() {
       <ScrollProgressBar />
       <NavBar />
       <main>
+        <h1 className="sr-only">
+          Boris Vedernikov — Creative Frontend Developer in Valencia, Spain
+        </h1>
         <HeroSection />
         <BackgroundSection />
         <ServicesSection />

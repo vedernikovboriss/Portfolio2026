@@ -44,7 +44,7 @@ const NavBar = () => {
       ref={navRef}
       className="fixed top-0 left-0 z-50 flex w-full flex-row items-center justify-between px-4 py-6 sm:px-6 lg:grid lg:grid-cols-3 lg:px-[2vw] lg:py-5"
     >
-      <Link href="/">
+      <Link href="/" aria-label="Boris Vedernikov — Home">
         <Logo className="z-10 h-4 w-auto" />
       </Link>
       <div className="hidden items-center gap-0 text-base sm:text-lg lg:flex lg:justify-self-center">
