@@ -21,7 +21,8 @@ export const highlightItems: HighlightItem[] = [
     industry: "Case Study",
     type: "Full Stack",
     country: "Spain",
-    videoSrc: "https://portfolio-boris-vedernikov.b-cdn.net/architech.mp4",
+    videoSrc:
+      "https://portfolio-boris-vedernikov.b-cdn.net/architechCompressed2.mp4",
     imageSrc: "/HighlightsBG/Architechbg.webp",
   },
   {
@@ -45,7 +46,8 @@ export const highlightItems: HighlightItem[] = [
     industry: "Door Installation",
     type: "Web Development",
     country: "Russia",
-    videoSrc: "https://portfolio-boris-vedernikov.b-cdn.net/tehotdel.mp4",
+    videoSrc:
+      "https://portfolio-boris-vedernikov.b-cdn.net/tehOtdelCompressed.mp4",
     imageSrc: "/HighlightsBG/Tehotdelbg.avif",
     link: "https://техотдел.com/",
   },
