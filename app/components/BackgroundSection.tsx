@@ -33,7 +33,7 @@ const BackgroundSection = () => {
             <div className="min-w-0 min-[500px]:flex-1 lg:flex-none">
               <ExperienceCard />
             </div>
-            <div className="relative min-w-0 w-full min-[500px]:flex-1 overflow-hidden rounded-sm bg-foreground/5 p-4 pb-0! sm:p-5 lg:w-full lg:p-8">
+            <div className="relative min-w-0 w-full min-[500px]:flex-1 overflow-hidden rounded-sm bg-foreground/5 p-4 pb-0! sm:p-5 lg:w-full lg:p-8 flex items-end justify-center">
               <Image
                 src="/backgroundIMG.avif"
                 alt="Background"

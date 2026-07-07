@@ -160,28 +160,36 @@ function ProjectVideo({
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const shouldLoadRef = useRef(false);
   const inView = useInView(containerRef, {
-    margin: "120px 0px",
-    amount: 0.2,
+    margin: "25% 0px",
+    amount: 0.05,
   });
+  const [shouldLoad, setShouldLoad] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
   const backgroundScale = useTransform(scrollYProgress, [0, 1], [1.1, 1.18]);
 
   useEffect(() => {
-    if (inView) return;
-    setIsLoaded(false);
+    if (!inView || shouldLoadRef.current) return;
+    shouldLoadRef.current = true;
+    setShouldLoad(true);
   }, [inView]);
 
-  /** Mobile Safari often ignores `autoPlay` alone; muted + playsInline + programmatic play helps */
   useEffect(() => {
-    if (!inView || !isLoaded || !videoRef.current) return;
-    const v = videoRef.current;
-    v.muted = true;
-    v.currentTime = 0;
-    void v.play().catch(() => {});
-  }, [inView, isLoaded]);
+    const video = videoRef.current;
+    if (!video || !shouldLoad || !isLoaded) return;
+
+    video.muted = true;
+
+    if (inView) {
+      void video.play().catch(() => {});
+      return;
+    }
+
+    video.pause();
+  }, [inView, isLoaded, shouldLoad]);
 
   return (
     <div ref={containerRef} className="absolute inset-0">
@@ -204,33 +212,35 @@ function ProjectVideo({
       </div>
 
       <div className="absolute inset-0 z-10 flex items-center justify-center p-4 sm:p-6 lg:p-8">
-        {inView ? (
-          <>
-            {!isLoaded && (
-              <div
-                className="absolute inset-0 flex items-center justify-center p-8"
-                aria-hidden
-              >
-                <div className="aspect-1351/810 w-full max-w-full animate-pulse rounded-sm bg-[#313131]" />
-              </div>
-            )}
-
-            <div className="relative w-full max-w-full overflow-hidden rounded-sm">
-              <video
-                ref={videoRef}
-                className={`block w-full bg-[#313131] transition-opacity duration-300 ease-out ${
-                  isLoaded ? "opacity-100" : "opacity-0"
-                }`}
-                src={src}
-                loop
-                muted
-                playsInline
-                preload="auto"
-                onLoadedData={() => setIsLoaded(true)}
-              />
-            </div>
-          </>
+        {shouldLoad && !isLoaded ? (
+          <div
+            className="absolute inset-0 flex items-center justify-center p-8"
+            aria-hidden
+          >
+            <div className="aspect-1351/810 w-full max-w-full animate-pulse rounded-sm bg-[#313131]" />
+          </div>
         ) : null}
+
+        <div className="relative w-full max-w-full overflow-hidden rounded-sm">
+          {shouldLoad ? (
+            <video
+              ref={videoRef}
+              className={`pointer-events-none block w-full bg-[#313131] transition-opacity duration-300 ease-out ${
+                isLoaded ? "opacity-100" : "opacity-0"
+              }`}
+              src={src}
+              poster={imageSrc}
+              loop
+              muted
+              playsInline
+              preload="auto"
+              disablePictureInPicture
+              controls={false}
+              onLoadedData={() => setIsLoaded(true)}
+              onCanPlay={() => setIsLoaded(true)}
+            />
+          ) : null}
+        </div>
       </div>
     </div>
   );

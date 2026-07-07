@@ -182,7 +182,7 @@ export default function ExperienceCard() {
           </button>
         </div>
       </div>
-      <div className="flex w-full flex-col gap-2">
+      <div className="flex w-full flex-col sm:gap-2">
         <SlideLine
           value={current.value}
           animKey={currentIndex}
