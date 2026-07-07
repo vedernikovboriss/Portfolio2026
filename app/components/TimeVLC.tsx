@@ -82,7 +82,7 @@ export default function TimeVLC({ className }: { className?: string }) {
 
   return (
     <div
-      className={`flex flex-col items-end gap-0 text-right ${className ?? ""}`}
+      className={`flex flex-col md:items-end gap-0 md:text-right ${className ?? ""}`}
     >
       <span className="tabular-nums">
         {CITY_LABEL} {timeLine}

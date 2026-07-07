@@ -42,7 +42,7 @@ const NavBar = () => {
   return (
     <nav
       ref={navRef}
-      className="fixed top-0 left-0 w-full z-50 lg:px-[2vw] px-4 lg:py-5 py-6 flex flex-row justify-between items-center lg:grid lg:grid-cols-3"
+      className="fixed top-0 left-0 z-50 flex w-full flex-row items-center justify-between px-4 py-6 sm:px-6 lg:grid lg:grid-cols-3 lg:px-[2vw] lg:py-5"
     >
       <Link href="/">
         <Logo className="z-10 h-4 w-auto" />
