@@ -34,16 +34,20 @@ const BackgroundSection = () => {
             <div className="min-w-0 min-[500px]:flex-1 lg:flex-none">
               <ExperienceCard />
             </div>
-            <div className="relative min-w-0 w-full min-[500px]:flex-1 overflow-hidden rounded-sm bg-foreground/5 p-4 pb-0! sm:p-5 lg:w-full lg:p-8">
-              <FloatingBlur />
-              <Image
-                src="/backgroundIMG.avif"
-                alt="Background"
-                width={588}
-                height={715}
-                className="relative z-10 h-auto w-full grayscale"
-                sizes="(min-width: 1024px) 33vw, (min-width: 500px) 45vw, 100vw"
-              />
+            <div className="relative min-w-0 w-full min-[500px]:flex-1 rounded-sm bg-foreground/5 p-4 pb-0! sm:p-5 lg:w-full lg:p-8">
+              <div className="pointer-events-none absolute inset-0 z-0 overflow-visible">
+                <FloatingBlur />
+              </div>
+              <div className="relative z-10 overflow-hidden rounded-sm">
+                <Image
+                  src="/backgroundIMG.avif"
+                  alt="Background"
+                  width={588}
+                  height={715}
+                  className="h-auto w-full grayscale"
+                  sizes="(min-width: 1024px) 33vw, (min-width: 500px) 45vw, 100vw"
+                />
+              </div>
             </div>
           </div>
         </div>

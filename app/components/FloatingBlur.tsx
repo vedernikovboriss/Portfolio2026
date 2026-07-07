@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import styles from "./FloatingBlur.module.css";
 
 const LEFT_KEYFRAMES = ["10%", "38%", "6%", "60%", "10%"] as const;
 const TOP_KEYFRAMES = ["18%", "6%", "42%", "60%", "18%"] as const;
@@ -10,7 +11,7 @@ export default function FloatingBlur() {
 
   return (
     <motion.div
-      className="absolute z-0 aspect-square w-[32%] max-w-32 min-w-14 rounded-full bg-foreground opacity-40 blur-3xl"
+      className={styles.wrapper}
       initial={{ left: LEFT_KEYFRAMES[0], top: TOP_KEYFRAMES[0] }}
       animate={
         prefersReducedMotion
@@ -23,6 +24,9 @@ export default function FloatingBlur() {
         repeat: Infinity,
         repeatType: "loop",
       }}
-    />
+      aria-hidden
+    >
+      <div className={styles.glow} />
+    </motion.div>
   );
 }

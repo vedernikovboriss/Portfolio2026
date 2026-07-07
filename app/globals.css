@@ -14,7 +14,7 @@
   --stroke-soft: color-mix(in oklab, var(--foreground) 30%, transparent);
   --stroke-hairline: 0 0 0 var(--stroke-width) var(--stroke-color);
 
-  --nav-control-height: 2rem;
+  --nav-control-height: 2.375rem;
 }
 
 @media (min-width: 1024px) {

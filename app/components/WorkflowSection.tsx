@@ -38,8 +38,17 @@ const AboutSection = () => {
               autoPlay
               muted
               loop
-              className="w-full h-full object-cover brightness-90"
+              playsInline
+              preload="auto"
+              disablePictureInPicture
+              controls={false}
+              controlsList="nodownload nofullscreen noremoteplayback"
+              tabIndex={-1}
+              aria-hidden
+              className="pointer-events-none h-full w-full object-cover brightness-90"
             />
+            {/* Swallow taps on mobile — iOS still treats <video> as interactive without this */}
+            <div className="absolute inset-0 touch-none" aria-hidden />
           </div>
           <ProcessBlock />
         </div>

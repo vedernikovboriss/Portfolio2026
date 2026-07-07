@@ -224,7 +224,7 @@ export default function ServiceVisual() {
   return (
     <div
       ref={containerRef}
-      className="relative aspect-4/3 w-full overflow-hidden rounded-sm min-[768px]:aspect-auto min-[768px]:min-h-96 min-[768px]:rounded-none min-[768px]:rounded-r-md md:col-span-2 lg:aspect-auto lg:min-h-0"
+      className="relative hidden w-full overflow-hidden rounded-none rounded-r-md xl:col-span-2 xl:block xl:min-h-0"
     >
       {floatingItems.map((item) => (
         <ParallaxAsset

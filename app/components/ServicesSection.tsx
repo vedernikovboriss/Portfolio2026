@@ -56,7 +56,7 @@ const ServicesSection = () => {
 
       <div className="grid min-h-0 grid-cols-1 items-stretch gap-10 md:grid-cols-6 lg:gap-16">
         <ServiceVisual />
-        <div className="relative flex flex-col gap-12 px-4 sm:gap-16 md:col-span-4 md:col-start-3 md:px-0 lg:gap-20">
+        <div className="relative flex flex-col gap-12 px-4 sm:gap-16 md:col-span-6 md:col-start-1 md:px-0 lg:gap-20 xl:col-span-4 xl:col-start-3">
           <div className="flex flex-col gap-0">
             {serviceCards.map((card) => (
               <div

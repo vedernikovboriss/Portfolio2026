@@ -46,11 +46,11 @@
 
 @media (max-width: 1023px) {
   .barIdle {
-    height: 0.25rem;
+    height: 0.28125rem;
   }
 
   .barPlaying {
-    height: 0.5625rem;
+    height: 0.625rem;
   }
 }
 
