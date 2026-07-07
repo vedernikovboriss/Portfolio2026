@@ -4,7 +4,7 @@ import ParagraphBig from "./ParagraphBig";
 
 const BackgroundSection = () => {
   return (
-    <section id="about" className="section-base">
+    <section id="about" className="section-base relative z-10 bg-background">
       <div className="flex flex-col gap-8 md:gap-16">
         <div className="flex flex-col gap-4">
           <div className="divider" />

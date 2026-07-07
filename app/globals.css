@@ -109,7 +109,7 @@ main section[id] {
     display: block;
   }
   p:not(.p-big):not(.paragraph-hero) {
-    @apply max-w-sm text-sm sm:text-base;
+    @apply max-w-sm text-base;
   }
   .p-secondary {
     @apply max-w-sm text-sm opacity-70;
