@@ -1,5 +1,8 @@
 import { CONTACT_LINKS, SOCIAL_LINKS } from "./externalLinks";
 
+/** Canonical production origin — never use Vercel preview URLs for SEO. */
+export const SITE_URL = "https://www.borisvv.com";
+
 export const SITE_NAME = "Boris Vedernikov";
 
 export const SITE_TITLE =

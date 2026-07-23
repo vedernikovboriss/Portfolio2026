@@ -7,22 +7,27 @@ import {
   SITE_NAME,
   SITE_OG_IMAGE,
   SITE_TITLE,
+  SITE_URL,
 } from "@/app/data/site";
 
 function normalizeSiteUrl(url: string) {
   return url.replace(/\/$/, "");
 }
 
+/**
+ * Always prefer the production domain for canonical, Open Graph, sitemap,
+ * and JSON-LD. Preview/deployment hosts (VERCEL_URL) must never leak into SEO.
+ */
 export function getSiteUrl() {
   if (process.env.NEXT_PUBLIC_SITE_URL) {
     return normalizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL);
   }
 
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`;
+  if (process.env.NODE_ENV === "development") {
+    return "http://localhost:3000";
   }
 
-  return "http://localhost:3000";
+  return SITE_URL;
 }
 
 export function absoluteUrl(path = "/") {
